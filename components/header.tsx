@@ -22,7 +22,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport, // ✅ ADDED
+  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
@@ -45,7 +45,6 @@ export function Header() {
         <nav className="hidden md:flex">
           <NavigationMenu delayDuration={0} skipDelayDuration={0}>
             <NavigationMenuList>
-
               {/* Explore Globe */}
               <NavigationMenuItem>
                 <NavigationMenuLink
@@ -129,10 +128,7 @@ export function Header() {
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
-
             </NavigationMenuList>
-
-            {/* ✅ REQUIRED VIEWPORT – FIXES BLANK FIRST HOVER */}
             <NavigationMenuViewport className="absolute top-full left-0 w-full" />
           </NavigationMenu>
         </nav>
@@ -152,15 +148,28 @@ export function Header() {
             className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X /> : <Menu />}
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
       </div>
+
+      {/* Mobile Menu Content */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-border bg-background p-4 flex flex-col gap-4 animate-in slide-in-from-top-2">
+          <Link href="/explore" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>Explore Globe</Link>
+          <Link href="/cultures" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>Cultures</Link>
+          <Link href="/events" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>Events</Link>
+          <Link href="/ai-guide" className="flex items-center gap-2 text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+            <Sparkles className="h-4 w-4 text-yellow-500" />
+            AI Guide
+          </Link>
+        </div>
+      )}
     </header>
   )
 }
 
-/* Helper */
+/* Helper Component */
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string; href: string }
@@ -171,13 +180,15 @@ const ListItem = React.forwardRef<
         ref={ref}
         href={href}
         className={cn(
-          "block rounded-md p-3 transition-colors hover:bg-accent",
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
           className
         )}
         {...props}
       >
-        <div className="text-sm font-medium">{title}</div>
-        <p className="text-sm text-muted-foreground">{children}</p>
+        <div className="text-sm font-medium leading-none">{title}</div>
+        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          {children}
+        </p>
       </Link>
     </NavigationMenuLink>
   </li>
