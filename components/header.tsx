@@ -58,7 +58,7 @@ export function Header() {
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
-              {/* Discover */}
+              {/* Discover Dropdown */}
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   <MapPin className="mr-2 h-4 w-4" />
@@ -79,7 +79,7 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Music & Dance */}
+              {/* Music & Dance Dropdown */}
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   <Music className="mr-2 h-4 w-4" />
@@ -142,6 +142,7 @@ export function Header() {
             </Button>
           </Link>
 
+          {/* Hamburger Menu Toggle */}
           <Button
             variant="ghost"
             size="icon"
@@ -153,13 +154,32 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu Content */}
+      {/* Mobile Menu Content - UPDATED CORRECTION */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background p-4 flex flex-col gap-4 animate-in slide-in-from-top-2">
-          <Link href="/explore" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>Explore Globe</Link>
-          <Link href="/cultures" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>Cultures</Link>
-          <Link href="/events" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>Events</Link>
-          <Link href="/ai-guide" className="flex items-center gap-2 text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+        <div className="md:hidden border-t border-border bg-background p-4 flex flex-col gap-4 animate-in slide-in-from-top-2 duration-200">
+          <Link href="/explore" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+            Explore Globe
+          </Link>
+          <Link href="/cultures" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+            Cultures & Heritage
+          </Link>
+          <Link href="/museums" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+            Museums & Landmarks
+          </Link>
+          <Link href="/food" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+            Food & Cuisine
+          </Link>
+          <Link href="/music/africa" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+            Music & Dance
+          </Link>
+          <Link href="/events" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+            Events
+          </Link>
+          <Link href="/travel-planner" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+            Travel Planner
+          </Link>
+          <hr className="border-border" />
+          <Link href="/ai-guide" className="flex items-center gap-2 text-sm font-medium text-primary" onClick={() => setMobileMenuOpen(false)}>
             <Sparkles className="h-4 w-4 text-yellow-500" />
             AI Guide
           </Link>
@@ -169,7 +189,7 @@ export function Header() {
   )
 }
 
-/* Helper Component */
+/* Helper Component for Desktop Dropdowns */
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string; href: string }
