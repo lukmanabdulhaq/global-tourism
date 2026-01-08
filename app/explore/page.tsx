@@ -1,14 +1,24 @@
 "use client"
 
 import { useState } from "react"
+import dynamic from "next/dynamic"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Search, Globe } from "lucide-react"
 import Link from "next/link"
 import { sampleCountries } from "@/lib/data/sample-countries"
-import InteractiveGlobe from "@/components/interactive-globe"
 import Image from "next/image"
+
+/**
+ * IMPORTANT:
+ * InteractiveGlobe uses browser-only APIs (WebGL / window),
+ * so we disable SSR to prevent client-side crashes on Vercel.
+ */
+const InteractiveGlobe = dynamic(
+  () => import("@/components/interactive-globe"),
+  { ssr: false }
+)
 
 export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -23,7 +33,8 @@ export default function ExplorePage() {
       country.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
       country.capital.toLowerCase().includes(searchQuery.toLowerCase())
 
-    const matchesRegion = selectedRegion === null || country.region === selectedRegion
+    const matchesRegion =
+      selectedRegion === null || country.region === selectedRegion
 
     return matchesSearch && matchesRegion
   })
@@ -37,7 +48,9 @@ export default function ExplorePage() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
               <Globe className="h-8 w-8 text-primary" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold font-serif mb-4 text-balance">Explore the World</h1>
+            <h1 className="text-4xl md:text-5xl font-bold font-serif mb-4 text-balance">
+              Explore the World
+            </h1>
             <p className="text-lg text-muted-foreground text-pretty">
               Discover cultures, traditions, and heritage from 195+ countries around the globe
             </p>
@@ -91,7 +104,8 @@ export default function ExplorePage() {
           {/* Results */}
           <div className="max-w-6xl mx-auto">
             <p className="text-sm text-muted-foreground mb-6">
-              Showing {filteredCountries.length} {filteredCountries.length === 1 ? "country" : "countries"}
+              Showing {filteredCountries.length}{" "}
+              {filteredCountries.length === 1 ? "country" : "countries"}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -112,13 +126,17 @@ export default function ExplorePage() {
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <span className="text-2xl">{country.flag}</span>
-                          <h3 className="text-lg font-semibold">{country.name}</h3>
+                          <h3 className="text-lg font-semibold">
+                            {country.name}
+                          </h3>
                         </div>
                         <Badge variant="secondary" className="ml-2 flex-shrink-0">
                           {country.region}
                         </Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{country.description}</p>
+                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                        {country.description}
+                      </p>
                       <div className="flex items-center text-sm text-muted-foreground">
                         <span className="font-medium">Capital:</span>
                         <span className="ml-2">{country.capital}</span>
