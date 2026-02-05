@@ -8,7 +8,7 @@
 This platform serves as a front-end intelligence interface for global tourism data. It provides users with real-time insights into destinations, optimized for speed and global delivery via Vercel's Edge Network.
 
 <div align="center">
-  <video src="https://raw.githubusercontent.com/lukmanabdulhaq/global-tourism/main/global-touring.mp4" width="100%" controls muted autoplay loop></video>
+  <video src="https://github.com/lukmanabdulhaq/global-tourism/raw/main/global-touring.mp4" width="100%" controls muted autoplay loop></video>
 </div>
 
 ## 🏗️ Architecture
